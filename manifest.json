@@ -1,0 +1,15 @@
+{
+  "name": "Jagga Sales Manager",
+  "short_name": "Jagga Sales",
+  "description": "Personal field sales management app for Lakhani Armaan — wholesalers, retailers, visits, orders and reports.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0b5ed7",
+  "theme_color": "#0b5ed7",
+  "icons": [
+    { "src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

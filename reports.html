@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Reports — Jagga Sales Manager</title>
+<meta name="theme-color" content="#0b5ed7">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/icon-192.png">
+<link rel="stylesheet" href="css/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,500,0,0">
+</head>
+<body>
+<div class="app-shell">
+
+  <div class="topbar">
+    <div class="tb-left">
+      <button class="tb-back" onclick="location.href='dashboard.html'"><span class="material-symbols-outlined">arrow_back</span></button>
+      <h1>Reports</h1>
+    </div>
+    <div class="tb-actions">
+      <button class="tb-icon-btn" onclick="App.toggleTheme()"><span class="material-symbols-outlined">dark_mode</span></button>
+    </div>
+  </div>
+
+  <div class="page">
+    <div class="chip-row">
+      <div class="chip active" data-report-tab="state">State Wise</div>
+      <div class="chip" data-report-tab="city">City Wise</div>
+      <div class="chip" data-report-tab="wholesaler">Wholesaler Wise</div>
+      <div class="chip" data-report-tab="retailer">Retailer Wise</div>
+      <div class="chip" data-report-tab="monthly">Monthly Sales</div>
+      <div class="chip" data-report-tab="visits">Visit Reports</div>
+    </div>
+
+    <div class="card mt-16" id="reportMount"></div>
+  </div>
+
+  <nav class="bottom-nav" id="bottomNav"></nav>
+</div>
+
+<script src="js/database.js"></script>
+<script src="js/app.js"></script>
+<script src="js/report.js"></script>
+<script>
+  App.init('reports');
+  Reports.init();
+</script>
+</body>
+</html>

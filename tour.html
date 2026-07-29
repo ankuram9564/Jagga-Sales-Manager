@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Tour Planner — Jagga Sales Manager</title>
+<meta name="theme-color" content="#0b5ed7">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/icon-192.png">
+<link rel="stylesheet" href="css/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,500,0,0">
+</head>
+<body>
+<div class="app-shell">
+
+  <div class="topbar">
+    <div class="tb-left">
+      <button class="tb-back" onclick="location.href='dashboard.html'"><span class="material-symbols-outlined">arrow_back</span></button>
+      <h1>Tour Planner</h1>
+    </div>
+    <div class="tb-actions">
+      <button class="tb-icon-btn" onclick="App.toggleTheme()"><span class="material-symbols-outlined">dark_mode</span></button>
+    </div>
+  </div>
+
+  <div class="page">
+
+    <!-- Step 1: pick a wholesaler to start the tour -->
+    <div id="tourPickerView">
+      <div class="search-bar">
+        <span class="material-symbols-outlined">search</span>
+        <input type="text" id="tourSearch" placeholder="Search wholesaler or city…">
+      </div>
+      <div class="form-group mt-16" style="margin-bottom:6px;">
+        <label>Filter by State</label>
+        <select id="tourStateFilter"></select>
+      </div>
+      <div class="section-title">Pick a Wholesaler to Start</div>
+      <div class="list" id="tourWholesalerList"></div>
+    </div>
+
+    <!-- Step 2: walk retailer by retailer under the chosen wholesaler -->
+    <div id="tourWalkView" class="hidden">
+      <button class="btn btn-ghost btn-sm" onclick="Tour.backToPicker()"><span class="material-symbols-outlined" style="font-size:16px;">arrow_back</span>Change Wholesaler</button>
+      <div class="detail-hero mt-12">
+        <div class="hero-body">
+          <h2 id="tourWholesalerName"></h2>
+          <div class="hero-sub" id="tourWholesalerSub"></div>
+        </div>
+      </div>
+      <div class="flex justify-between items-center mt-16">
+        <div class="section-title" style="margin:0;">Retailers to Visit</div>
+      </div>
+      <div id="tourWalkList"></div>
+    </div>
+
+  </div>
+
+  <nav class="bottom-nav" id="bottomNav"></nav>
+</div>
+
+<script src="js/database.js"></script>
+<script src="js/app.js"></script>
+<script src="js/tour.js"></script>
+<script>
+  App.init('tour');
+  Tour.init();
+</script>
+</body>
+</html>

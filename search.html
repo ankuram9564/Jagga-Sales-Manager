@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Search — Jagga Sales Manager</title>
+<meta name="theme-color" content="#0b5ed7">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/icon-192.png">
+<link rel="stylesheet" href="css/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,500,0,0">
+</head>
+<body>
+<div class="app-shell">
+
+  <div class="topbar">
+    <div class="tb-left">
+      <button class="tb-back" onclick="location.href='dashboard.html'"><span class="material-symbols-outlined">arrow_back</span></button>
+      <h1>Search</h1>
+    </div>
+  </div>
+
+  <div class="page">
+    <div class="search-bar">
+      <span class="material-symbols-outlined">search</span>
+      <input type="text" id="globalSearch" placeholder="State, city, wholesaler, retailer, mobile…" autofocus oninput="runSearch()">
+    </div>
+
+    <div class="section-title first" id="wholesalerResultsTitle" style="display:none;">Wholesalers</div>
+    <div class="list mt-8" id="wholesalerResults"></div>
+
+    <div class="section-title" id="retailerResultsTitle" style="display:none;">Retailers</div>
+    <div class="list mt-8" id="retailerResults"></div>
+
+    <div class="empty-state" id="searchEmpty">
+      <span class="material-symbols-outlined">travel_explore</span>
+      <h3>Search across everything</h3>
+      <p>Type a state, city, firm name, retailer name or mobile number.</p>
+    </div>
+  </div>
+
+  <nav class="bottom-nav" id="bottomNav"></nav>
+</div>
+
+<script src="js/database.js"></script>
+<script src="js/app.js"></script>
+<script>
+  App.init('dashboard');
+
+  function cardFor(kind, item) {
+    if (kind === 'wholesaler') {
+      const count = DB.getRetailersByWholesaler(item.id).length;
+      return `<div class="entity-card" onclick="location.href='wholesaler-detail.html?id=${item.id}'">
+        <div class="entity-avatar">${item.shopPhoto ? `<img src="${item.shopPhoto}">` : App.initials(item.firmName)}</div>
+        <div class="entity-body">
+          <div class="entity-title">${App.escapeHtml(item.firmName)}</div>
+          <div class="entity-sub">${App.escapeHtml(item.ownerName || '')} ${item.city ? '· ' + App.escapeHtml(item.city) : ''}</div>
+          <div class="entity-meta"><span class="entity-tag">${count} retailers</span>${item.mobile ? `<span class="entity-tag muted">${App.escapeHtml(item.mobile)}</span>` : ''}</div>
+        </div>
+      </div>`;
+    }
+    const w = DB.getWholesaler(item.wholesalerId);
+    return `<div class="entity-card" onclick="location.href='retailer-detail.html?id=${item.id}'">
+      <div class="entity-avatar">${item.shopPhoto ? `<img src="${item.shopPhoto}">` : App.initials(item.retailerName)}</div>
+      <div class="entity-body">
+        <div class="entity-title">${App.escapeHtml(item.retailerName)}</div>
+        <div class="entity-sub">${App.escapeHtml(item.shopName || '')}${w ? ' · under ' + App.escapeHtml(w.firmName) : ''}</div>
+        ${item.mobile ? `<div class="entity-meta"><span class="entity-tag muted">${App.escapeHtml(item.mobile)}</span></div>` : ''}
+      </div>
+    </div>`;
+  }
+
+  function runSearch() {
+    const q = App.qs('globalSearch').value.trim();
+    const emptyState = App.qs('searchEmpty');
+    const wTitle = App.qs('wholesalerResultsTitle');
+    const rTitle = App.qs('retailerResultsTitle');
+    const wMount = App.qs('wholesalerResults');
+    const rMount = App.qs('retailerResults');
+
+    if (!q) {
+      emptyState.style.display = '';
+      wTitle.style.display = 'none'; rTitle.style.display = 'none';
+      wMount.innerHTML = ''; rMount.innerHTML = '';
+      return;
+    }
+    emptyState.style.display = 'none';
+    const { wholesalers, retailers } = DB.search(q);
+
+    wTitle.style.display = wholesalers.length ? '' : 'none';
+    wMount.innerHTML = wholesalers.map(w => cardFor('wholesaler', w)).join('');
+
+    rTitle.style.display = retailers.length ? '' : 'none';
+    rMount.innerHTML = retailers.map(r => cardFor('retailer', r)).join('');
+
+    if (!wholesalers.length && !retailers.length) {
+      wMount.innerHTML = '<div class="empty-state"><span class="material-symbols-outlined">search_off</span><p>No matches found.</p></div>';
+      wTitle.style.display = '';
+    }
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Add Order — Jagga Sales Manager</title>
+<meta name="theme-color" content="#0b5ed7">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/icon-192.png">
+<link rel="stylesheet" href="css/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,500,0,0">
+</head>
+<body>
+<div class="app-shell">
+
+  <div class="topbar">
+    <div class="tb-left">
+      <button class="tb-back" onclick="history.back()"><span class="material-symbols-outlined">arrow_back</span></button>
+      <h1 id="orderFormTitle">Add Order</h1>
+    </div>
+  </div>
+
+  <div class="page">
+    <form id="orderForm">
+      <div class="form-group">
+        <label>Wholesaler <span class="req">*</span></label>
+        <select name="wholesalerId" required></select>
+      </div>
+      <div class="form-group">
+        <label>Retailer</label>
+        <select name="retailerId"></select>
+      </div>
+      <div class="row-2">
+        <div class="form-group">
+          <label>Date</label>
+          <input type="date" name="date">
+        </div>
+        <div class="form-group">
+          <label>Art Number <span class="req">*</span></label>
+          <input type="text" name="artNo" placeholder="e.g. AR-2201" required>
+        </div>
+      </div>
+      <div class="row-2">
+        <div class="form-group">
+          <label>Colour</label>
+          <input type="text" name="colour" placeholder="e.g. Black/Tan">
+        </div>
+        <div class="form-group">
+          <label>Size</label>
+          <input type="text" name="size" placeholder="e.g. 6-10">
+        </div>
+      </div>
+      <div class="row-2">
+        <div class="form-group">
+          <label>Quantity</label>
+          <input type="number" name="qty" min="0" placeholder="Pairs">
+        </div>
+        <div class="form-group">
+          <label>Total Order Value (₹)</label>
+          <input type="number" name="value" min="0" placeholder="Total value">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Notes</label>
+        <textarea name="notes" placeholder="Any remarks about this order"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Save Order</button>
+      <button type="button" id="deleteOrderBtn" class="btn btn-danger btn-block mt-12 hidden"><span class="material-symbols-outlined">delete</span>Delete Order</button>
+    </form>
+  </div>
+
+  <nav class="bottom-nav" id="bottomNav"></nav>
+</div>
+
+<script src="js/database.js"></script>
+<script src="js/app.js"></script>
+<script src="js/orders.js"></script>
+<script>
+  App.init('orders');
+  OrdersModule.initForm();
+</script>
+</body>
+</html>

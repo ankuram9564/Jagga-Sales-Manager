@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Dashboard — Jagga Sales Manager</title>
+<meta name="theme-color" content="#0b5ed7">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/icon-192.png">
+<link rel="stylesheet" href="css/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,500,0,0">
+</head>
+<body>
+<div class="app-shell">
+
+  <div class="topbar">
+    <div class="tb-left">
+      <div>
+        <h1>Jagga Sales Manager</h1>
+        <div class="tb-sub">Lakhani Armaan · Field Sales</div>
+      </div>
+    </div>
+    <div class="tb-actions">
+      <button class="tb-icon-btn" onclick="App.toggleTheme()" title="Toggle dark mode">
+        <span class="material-symbols-outlined">dark_mode</span>
+      </button>
+      <button class="tb-icon-btn" id="btnBackup" title="Backup data">
+        <span class="material-symbols-outlined">cloud_download</span>
+      </button>
+      <label class="tb-icon-btn" title="Restore backup" style="cursor:pointer;">
+        <span class="material-symbols-outlined">cloud_upload</span>
+        <input type="file" id="restoreInput" accept="application/json" class="hidden">
+      </label>
+    </div>
+  </div>
+
+  <div class="page">
+    <div class="search-bar" onclick="location.href='search.html'">
+      <span class="material-symbols-outlined">search</span>
+      <input type="text" placeholder="Search state, city, wholesaler, retailer, mobile…" readonly>
+    </div>
+
+    <div class="section-title first">Overview</div>
+    <div class="stat-grid" id="dashStats"></div>
+
+    <div class="section-title">Quick Actions</div>
+    <div class="quick-actions">
+      <div class="quick-action" onclick="location.href='wholesalers.html'"><span class="material-symbols-outlined">add_business</span><span class="qa-label">Wholesaler</span></div>
+      <div class="quick-action" onclick="location.href='retailers.html'"><span class="material-symbols-outlined">storefront</span><span class="qa-label">Retailer</span></div>
+      <div class="quick-action" onclick="location.href='tour.html'"><span class="material-symbols-outlined">route</span><span class="qa-label">Start Tour</span></div>
+      <div class="quick-action" onclick="location.href='order-form.html'"><span class="material-symbols-outlined">add_shopping_cart</span><span class="qa-label">Add Order</span></div>
+    </div>
+
+    <div class="flex justify-between items-center">
+      <div class="section-title" style="margin-bottom:0;">Upcoming Follow-ups</div>
+      <a href="reports.html" class="text-sm" style="color:var(--primary);font-weight:700;">Reports →</a>
+    </div>
+    <div class="list mt-12" id="dashFollowups"></div>
+
+    <div class="section-title">Recent Activity</div>
+    <div class="card" id="dashActivity"></div>
+  </div>
+
+  <nav class="bottom-nav" id="bottomNav"></nav>
+</div>
+
+<script src="js/database.js"></script>
+<script src="js/app.js"></script>
+<script src="js/dashboard.js"></script>
+<script>
+  App.init('dashboard');
+  Dashboard.render();
+</script>
+</body>
+</html>
